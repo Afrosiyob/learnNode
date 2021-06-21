@@ -1,6 +1,16 @@
 const express = require("express");
 const logger = require("morgan");
+
+const Joi = require("joi");
+const helmet = require("helmet");
 const app = express();
+
+app.use((req, res, next) => {
+  console.log("log middleware");
+  next();
+});
+
+app.use(helmet);
 
 const books = [
   {
@@ -59,6 +69,13 @@ app.post("/api/books", (req, res) => {
       message: "name is required",
     });
   }
+});
+
+app.put("/api/book/:id", (req, res) => {
+  const book = books.find((book) => book.id === parseInt(req.params.id));
+  book
+    ? res.send(book)
+    : res.status(404).send({ message: "bunday kitob topilmadi" });
 });
 
 app.listen(process.env.PORT || 5000, () => {
