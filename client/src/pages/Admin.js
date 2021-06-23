@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useContext } from "react";
+import ThemeContext from "../services/context";
 
 const Admin = () => {
-    return (
-        <div>
-            this is  admin page
-        </div>
-    )
-}
+  const { name } = useContext(ThemeContext);
 
-export default Admin
+  return <div>this is admin page {name} </div>;
+};
+
+export default Admin;
